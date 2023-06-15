@@ -1,0 +1,22 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+apiVersion: awsblueprints.io/v1alpha1
+kind: CDN
+metadata:
+  name: sean-cdn
+  namespace: default
+spec:
+  compositionSelector:
+    matchLabels:
+      awsblueprints.io/environment: dev
+  writeConnectionSecretToRef:
+    name: cdn-info
+  resourceConfig:
+    providerConfigName: aws-provider-config
+    region: cn-northwest-1
+    tags:
+      - key: key-sean
+        value: sean-test
+      - key: sen-sl
+        value: sean-test-value

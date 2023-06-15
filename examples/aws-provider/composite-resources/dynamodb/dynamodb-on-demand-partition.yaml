@@ -1,0 +1,28 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+apiVersion: awsblueprints.io/v1alpha1
+kind: DynamoDBTable
+metadata:
+  name: test-table-on-demand-partition-key
+  namespace: default
+spec:
+  compositionSelector:
+    matchLabels:
+      awsblueprints.io/provider: aws
+      awsblueprints.io/environment: dev
+      dynamodb.awsblueprints.io/capacity: on-demand
+      dynamodb.awsblueprints.io/pkType: partition
+  publishConnectionDetailsTo:
+    name: test-table-on-demand-partition-key
+  resourceConfig:
+    providerConfigName: aws-provider-config
+    region: cn-northwest-1
+    tags:
+      - key: env
+        value: test
+      - key: anotherKey
+        value: anotherValue
+  tableIndex:
+    hashKeyName: hashKey
+    hashKeyType: S

@@ -1,0 +1,24 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# Run `kubectl apply -f vpc.yaml` to test this example once you bootstrap the EKS cluster with Crossplane and AWS Provider
+---
+apiVersion: network.awsblueprints.io/v1alpha1
+kind: amazonVpc
+metadata:
+  name: xplane-amazon-vpc
+  namespace: default
+spec:
+  compositionSelector:
+    matchLabels:
+      awsblueprints.io/provider: aws
+      awsblueprints.io/environment: dev
+      service: vpc
+      compute: managedamazon-vpc
+  resourceConfig:
+    providerConfigName: aws-provider-config
+    region: cn-northwest-1
+  parameters:
+    vpcName: aws-provider-vpc
+    vpccidrBlock: "10.20.0.0/16"
+    amazonProvidedIpv6CidrBlock: true

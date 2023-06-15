@@ -1,0 +1,17 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws-cn:iam::456370280007:oidc-provider/oidc.eks.cn-northwest-1.amazonaws.com.cn/id/611B7B218328D01D7483C7EC89CB19DE"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringLike": {
+          "oidc.eks.cn-northwest-1.amazonaws.com.cn/id/611B7B218328D01D7483C7EC89CB19DE:sub": "system:serviceaccount:crossplane-system:provider-*"
+        }
+      }
+    }
+  ]
+}

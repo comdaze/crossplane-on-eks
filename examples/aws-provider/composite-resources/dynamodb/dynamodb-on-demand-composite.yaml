@@ -1,0 +1,30 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+apiVersion: awsblueprints.io/v1alpha1
+kind: DynamoDBTable
+metadata:
+  name: test-table-on-demand-composite-key
+  namespace: default
+spec:
+  compositionSelector:
+    matchLabels:
+      awsblueprints.io/provider: aws
+      awsblueprints.io/environment: dev
+      dynamodb.awsblueprints.io/capacity: on-demand
+      dynamodb.awsblueprints.io/pkType: composite
+  publishConnectionDetailsTo:
+    name: test-table-on-demand-composite-key
+  resourceConfig:
+    providerConfigName: aws-provider-config
+    region: us-west-2
+    tags:
+      - key: env
+        value: test
+      - key: anotherKey
+        value: anotherValue
+  tableIndex:
+    hashKeyName: hashKey
+    hashKeyType: S
+    rangeKeyName: rangeKey
+    rangeKeyType: S

@@ -1,0 +1,98 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "DenyPermBoundaryIAMPolicyAlteration",
+        "Effect": "Deny",
+        "Action": [
+          "iam:DeletePolicy",
+          "iam:DeletePolicyVersion",
+          "iam:CreatePolicyVersion",
+          "iam:SetDefaultPolicyVersion"
+        ],
+        "Resource": [
+          "arn:aws:iam::456370280007:policy/crossplaneBoundary"
+        ]
+      },
+      {
+        "Sid": "DenyRemovalOfPermBoundaryFromAnyUserOrRole",
+        "Effect": "Deny",
+        "Action": [
+          "iam:DeleteUserPermissionsBoundary",
+          "iam:DeleteRolePermissionsBoundary"
+        ],
+        "Resource": [
+          "arn:aws:iam::456370280007:user/*",
+          "arn:aws:iam::456370280007:role/*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "iam:PermissionsBoundary": "arn:aws:iam::456370280007:policy/crossplaneBoundary"
+          }
+        }
+      },
+      {
+        "Sid": "DenyAccessIfRequiredPermBoundaryIsNotBeingApplied",
+        "Effect": "Deny",
+        "Action": [
+          "iam:PutUserPermissionsBoundary",
+          "iam:PutRolePermissionsBoundary"
+        ],
+        "Resource": [
+          "arn:aws:iam::456370280007:user/*",
+          "arn:aws:iam::456370280007:role/*"
+        ],
+        "Condition": {
+          "StringNotEquals": {
+            "iam:PermissionsBoundary": "arn:aws:iam::456370280007:policy/crossplaneBoundary"
+          }
+        }
+      },
+      {
+        "Sid": "DenyRoleCreationWithOutPermBoundary",
+        "Effect": "Deny",
+        "Action": [
+          "iam:CreateRole"
+        ],
+        "Resource": [
+          "arn:aws:iam::456370280007:user/*",
+          "arn:aws:iam::456370280007:role/*"
+        ],
+        "Condition": {
+          "StringNotEquals": {
+            "iam:PermissionsBoundary": "arn:aws:iam::456370280007:policy/crossplaneBoundary"
+          }
+        }
+      },
+      {
+        "Effect": "Deny",
+        "Action": [
+          "iam:CreateUser",
+          "iam:AddUserToGroup",
+          "iam:AttachUserPolicy",
+          "iam:ChangePassword",
+          "iam:CreateAccessKey",
+          "iam:*AccountAlias",
+          "iam:CreateGroup",
+          "iam:*LoginProfile",
+          "iam:*IDConnectProvider*",
+          "iam:*SAMLProvider*",
+          "iam:CreateServiceSpecificCredential",
+          "iam:*MFA*",
+          "iam:UpdateUser"
+        ],
+        "Resource": [
+          "*"
+        ]
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "*"
+        ],
+        "Resource": [
+          "*"
+        ]
+      }
+    ]
+  }

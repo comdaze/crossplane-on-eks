@@ -1,0 +1,10 @@
+apiVersion: awsblueprints.io/v1alpha1
+kind: ServerlessApp
+metadata:
+  name: $CLAIM_NAME
+spec:
+  imageName: $IMAGE_NAME:latest
+  memorySize: 128
+  resourceConfig:
+    providerConfigName: aws-provider-config
+    region: $AWS_REGION
