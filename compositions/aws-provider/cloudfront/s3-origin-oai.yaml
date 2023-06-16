@@ -38,6 +38,12 @@ spec:
             distributionConfig:
               enabled: true
               comment: example cloudfront distribution
+              aliases:
+                items:
+                  - sean.comdaze.com
+              viewerCertificate:
+                iamCertificateID: ASCAWUQOJ2ZDSYOR3MFHI
+                sslSupportMethod: sni-only
               defaultRootObject: index.html
               defaultCacheBehavior:
                 targetOriginID: s3Origin
